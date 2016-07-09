@@ -69,6 +69,10 @@ parse_body(#mod{parsed_header=Header, entity_body=Body}) ->
     case proplists:get_value("content-type", Header) of
         "application/x-www-form-urlencoded"++_ ->
             {ok, modlib_util:parse_qs(Body)};
+        "application/json;charset=UTF-8" ++_ ->
+            {ok,  modlib_util:parse_qs(Body)};
+        "text/xml;charset=UTF-8" ++_ ->
+            {ok,  modlib_util:parse_qs(Body)};
         _ -> {error, content_type}
     end.
 
