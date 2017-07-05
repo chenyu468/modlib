@@ -66,14 +66,23 @@ parse_qs(#mod{data=Data, request_uri=Uri}) ->
 %%--------------------------------------------------------------------
 
 parse_body(#mod{parsed_header=Header, entity_body=Body}) ->
+    %% io:format("_69:~n\t~p",[Header]),
+    %% io:format("_70:~n\t~p~n",[proplists:get_value("content-type", Header)]),
     case proplists:get_value("content-type", Header) of
         "application/x-www-form-urlencoded"++_ ->
             {ok, modlib_util:parse_qs(Body)};
-        "application/json;charset=UTF-8" ++_ ->
+        "application/json" ++_ ->            
+            %% io:format("_75~n"),
+            A = modlib_util:parse_qs(Body),
+            %% io:format("_77:~n\t~p~n",[A]),
             {ok,  modlib_util:parse_qs(Body)};
-        "text/xml;charset=UTF-8" ++_ ->
+        "text/json" ++_ ->
             {ok,  modlib_util:parse_qs(Body)};
-        _ -> {error, content_type}
+        "text/xml" ++_ ->
+            {ok,  modlib_util:parse_qs(Body)};
+        Other -> 
+            %% io:format("_79:~n\t~s",[Other]),
+            {error, content_type}
     end.
 
 %%--------------------------------------------------------------------

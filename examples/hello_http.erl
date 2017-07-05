@@ -20,6 +20,6 @@ start(Port) ->
 %%--------------------------------------------------------------------
 
 request("GET", _Path, _Info) ->
-    {ok, {html, "Hello modlib!"}};
+    {ok, {html, "Hello modlib2!"}};
 request(_Method, _Path, _Info) ->
     {error, "Bad Request"}.
