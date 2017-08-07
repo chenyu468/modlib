@@ -73,9 +73,10 @@ parse_body(#mod{parsed_header=Header, entity_body=Body}) ->
             {ok, modlib_util:parse_qs(Body)};
         "application/json" ++_ ->            
             %% io:format("_75~n"),
-            A = modlib_util:parse_qs(Body),
+          %%  A = modlib_util:parse_qs(Body),
             %% io:format("_77:~n\t~p~n",[A]),
-            {ok,  modlib_util:parse_qs(Body)};
+          %%  {ok,  modlib_util:parse_qs(Body)};
+            {ok, [{ Body,aaa}]};
         "text/json" ++_ ->
             {ok,  modlib_util:parse_qs(Body)};
         "text/xml" ++_ ->
