@@ -1,5 +1,5 @@
 -module(modlib_webapp).
-
+-compile([{parse_transform, lager_transform}]).
 -include("httpd.hrl").
 
 -export([do/2, behaviour_info/1, parse_transform/2]).
@@ -87,6 +87,7 @@ do(#mod{method=Method,
                     UnquotedPath = modlib_util:unquote(Path),
                     ReqInfo = Info#mod{data=[{'_split_uri', Split}|Data]},
                     try
+                        %% lager:debug("_90:~n\t~p~n\t~p~n\t~p",[Mod,ReqInfo,UnquotedPath]),
                         case Mod:request(Method, UnquotedPath, ReqInfo) of
                             {Code, Headers, Resp} when is_integer(Code) ->
                                 proceed(Code, Headers, Resp, Data);

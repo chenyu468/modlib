@@ -51,10 +51,12 @@ do(Info) ->
 
 do_get(Info) ->
     ?DEBUG("do_get -> Request URI: ~p",[Info#mod.request_uri]),
-    lager:debug("do_get -> Request URI: ~p",[Info#mod.request_uri]),
+    %% lager:debug("do_get -> Request URI: ~p",[Info#mod.request_uri]),
+    %% lager:debug("_55:~n\t~p~n\t~p~n\t~p",[Info#mod.data, Info#mod.config_db, 
+    %%     		  Info#mod.request_uri]),
     Path = mod_alias:path(Info#mod.data, Info#mod.config_db, 
 			  Info#mod.request_uri),
-    lager:debug("_55:~n\t~p",[Path]),
+    %% lager:debug("_59:~n\t~p",[Path]),
     send_response(Info#mod.socket,Info#mod.socket_type, Path, Info).
 
 
