@@ -80,9 +80,11 @@ parse_body_1(#mod{parsed_header=Header, entity_body=Body}) ->
         "text/json" ++_ ->
             {ok,  modlib_util:parse_qs(Body)};
         "text/xml" ++_ ->
-            {ok,  modlib_util:parse_qs(Body)};
+            {ok,  modlib_util:parse_qs(Body)};    
+        "multipart/form-data; boundary="++_->
+            {ok,multipart,Body};
         Other -> 
-            %% io:format("_79:~n\t~s",[Other]),
+            io:format("_79:~n\t~s",[Other]),
             {error, content_type}
     end.
 

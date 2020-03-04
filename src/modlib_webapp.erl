@@ -148,7 +148,10 @@ response(Code, Headers, Body) when is_list(Body) ->
     response(Code, Headers, {text, Body}).
 
 body_length(Body) when is_list(Body) ->
-    integer_to_list(httpd_util:flatlength(Body)).
+    integer_to_list(httpd_util:flatlength(Body));
+
+body_length(Body) when is_binary(Body) ->
+    integer_to_list(size(Body)).
 
 mime_type(text)  -> "text/plain";
 mime_type(html)  -> "text/html";
